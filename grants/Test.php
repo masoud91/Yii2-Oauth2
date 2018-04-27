@@ -1,6 +1,6 @@
 <?php
 
-namespace infinitydesign\idcoauth;
+namespace infinitydesign\idcoauth\test;
 
 /**
  * This is just an example.
