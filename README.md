@@ -28,4 +28,5 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \infinitydesign\idcoauth\AutoloadExample::widget(); ?>```
+<?= \infinitydesign\idcoauth\AutoloadExample::widget(); ?>
+```
