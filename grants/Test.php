@@ -1,14 +1,14 @@
 <?php
 
-namespace infinitydesign\idcoauth;
+namespace infinitydesign\idcoauth\grants;
 
 /**
  * This is just an example.
  */
-class AutoloadExample extends \yii\base\Widget
+class Test extends \yii\base\Widget
 {
     public function run()
     {
-        return "Hello!";
+        return "Hello World";
     }
 }
