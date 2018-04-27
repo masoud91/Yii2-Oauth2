@@ -1,0 +1,21 @@
+{
+    "name": "infinitydesign/yii2-idcoauth",
+    "description": "idco ouath2 extension for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2"," extension"," oauth2"," idcoauth"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Masoud Aghaei",
+            "email": "masoud@idco.io"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "infinitydesign\\idcoauth\\": ""
+        }
+    }
+}
