@@ -1,6 +1,6 @@
 <?php
 
-namespace infinitydesign\idcoauth\grants;
+namespace infinitydesign\idcoauth;
 
 /**
  * This is just an example.
@@ -9,6 +9,6 @@ class Test extends \yii\base\Widget
 {
     public function run()
     {
-        return "Hello World";
+        return "Hello World.";
     }
 }
