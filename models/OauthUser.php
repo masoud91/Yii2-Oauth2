@@ -1,5 +1,5 @@
 <?php
-namespace infinitydesign\idcoauth;
+namespace infinitydesign\idcoauth\models;
 
 use Yii;
 use common\models\User;
