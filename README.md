@@ -32,6 +32,10 @@ to the require section of your `composer.json` file.
 
 Usage
 -----
+run the following migrations in order to create schemas and intial documents ( only supprot mongodb by now )
+```
+./yii mongodb-migrate --migrationPath=@vendor/infinitydesign/yii2-idcoauth/migrations
+```
 
 add the following config under the modules section:
 ```php
