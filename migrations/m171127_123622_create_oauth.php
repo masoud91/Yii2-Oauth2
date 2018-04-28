@@ -44,6 +44,27 @@ class m171127_123622_create_oauth extends \yii\mongodb\Migration
 
         $this->createCollection('oauth_jwt');
 
+        $this->insert('oauth_clients', [
+            'client_id' => 'public-android',
+            'grant_types' => 'password refresh_token code authorization_code',
+            'cdt' => \common\components\MongoDateBehavior::msNow(),
+            'udt' => \common\components\MongoDateBehavior::msNow(),
+        ]);
+
+        $this->insert('oauth_clients', [
+            'client_id' => 'public-ios',
+            'grant_types' => 'password refresh_token code authorization_code',
+            'cdt' => \common\components\MongoDateBehavior::msNow(),
+            'udt' => \common\components\MongoDateBehavior::msNow(),
+        ]);
+
+        $this->insert('oauth_clients', [
+            'client_id' => 'public-web',
+            'grant_types' => 'password refresh_token code authorization_code',
+            'cdt' => \common\components\MongoDateBehavior::msNow(),
+            'udt' => \common\components\MongoDateBehavior::msNow(),
+        ]);
+
     }
 
     public function down()
