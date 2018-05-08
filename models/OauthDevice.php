@@ -67,7 +67,7 @@ class OauthDevice extends ActiveRecord
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
 
             ['uuid', 'unique',
-                'targetClass' => 'infinitydesign\idcoauth\OauthDevice',
+                'targetClass' => 'infinitydesign\idcoauth\models\OauthDevice',
                 'message' => 'This UUID has already been taken.'
             ],
         ];
