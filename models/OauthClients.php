@@ -59,7 +59,7 @@ class OauthClients extends ActiveRecord implements ClientCredentialsInterface
             [['client_id', 'client_secret', 'redirect_uri', 'grant_types', 'scope', 'user_id', 'cdt', 'udt'], 'safe'],
             [['client_id'], 'required'],
             ['client_id', 'unique',
-                'targetClass' => 'infinitydesign\idcoauth\OauthClients',
+                'targetClass' => 'infinitydesign\idcoauth\models\OauthClients',
                 'message' => 'Repeated client_id'
             ],
         ];

@@ -62,7 +62,7 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
             [['access_token', 'client_id', 'expires', 'scope', 'user_id', 'device_id', 'cdt', 'udt'], 'safe'],
             [['access_token'], 'required'],
             ['access_token', 'unique',
-                'targetClass' => 'infinitydesign\idcoauth\OauthClients',
+                'targetClass' => 'infinitydesign\idcoauth\models\OauthClients',
                 'message' => 'Repeated access_token.'
             ],
         ];
