@@ -2,6 +2,7 @@
 
 namespace infinitydesign\idcoauth\models;
 
+use MongoDB\BSON\ObjectId;
 use Yii;
 use yii\mongodb\ActiveRecord;
 use OAuth2\Storage\RefreshTokenInterface;
@@ -143,7 +144,7 @@ class OauthRefreshTokens extends ActiveRecord implements RefreshTokenInterface
         $token = [
             'refresh_token' => $refresh_token,
             'client_id' => $client_id,
-            'user_id' => $user_id,
+            'user_id' => new ObjectId($user_id),
             'expires' => $expires,
             'scope' => $scope
         ];

@@ -2,6 +2,7 @@
 
 namespace infinitydesign\idcoauth\models;
 
+use MongoDB\BSON\ObjectId;
 use yii;
 use common\idco\mongodb\ActiveRecord;
 use common\components\MongoDateBehavior;
@@ -128,7 +129,7 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
         $token = [
             'client_id' => $client_id,
             'expires' => $expires,
-            'user_id' => $user_id,
+            'user_id' => new ObjectId($user_id),
             'scope' => $scope
         ];
 
