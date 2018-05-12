@@ -2,6 +2,7 @@
 
 namespace infinitydesign\idcoauth\models;
 
+use MongoDB\BSON\ObjectId;
 use yii;
 use yii\mongodb\ActiveRecord;
 use common\components\MongoDateBehavior;
@@ -143,7 +144,7 @@ class OauthDevice extends ActiveRecord
         $device->os_version = $request->post('os_version');
         $device->phone_model = $request->post('phone_model');
         $device->app_version = $request->post('app_version');
-        $device->user_id = Yii::$app->user->id;
+        $device->user_id = new ObjectId(Yii::$app->user->id);
 
         if( !$device->save() ){
             Yii::error("could not save device with UUID: $uuid, errors:");
