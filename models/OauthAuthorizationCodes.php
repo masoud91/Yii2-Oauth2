@@ -126,9 +126,10 @@ class OauthAuthorizationCodes extends ActiveRecord implements AuthorizationCodeI
      * @param $client_id
      * @param $user_id
      * @param int $expires
-     * @return mixed|null
+     * @return null|string
+     * @throws \yii\base\Exception
      */
-    public static function createToken($client_id, $user_id, $expires = 60*15) {
+    public static function createToken($client_id, $user_id, $expires = 900) {
 
         Yii::info("OAuthAuthorizationCodes::createToken() called.");
 
