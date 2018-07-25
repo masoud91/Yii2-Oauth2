@@ -1,101 +1,66 @@
 <?php
 
-namespace infinitydesign\idcoauth\models;
+namespace infinitydesign\idcoauth\mysql\models;
 
-use yii;
-use yii\mongodb\ActiveRecord;
-use common\components\MongoDateBehavior;
-use OAuth2\Storage\ClientCredentialsInterface;
+use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for collection "OauthClients".
+ * This is the model class for table "oauth_clients".
  *
- * @property \MongoDB\BSON\ObjectID|string $_id
+ * @property int $id
  * @property string $client_id
  * @property string $client_secret
  * @property string $redirect_uri
  * @property string $grant_types
  * @property string $scope
- * @property \MongoDB\BSON\ObjectID|string $user_id
- * @property integer $cdt
- * @property integer $udt
+ * @property int $user_id
+ * @property int $status
+ * @property string $cdt
+ * @property string $udt
  */
-class OauthClients extends ActiveRecord implements ClientCredentialsInterface
+class OauthClients extends ActiveRecord
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public static function collectionName()
+    public static function tableName()
     {
         return 'oauth_clients';
     }
 
     /**
-     * @inheritdoc
-     */
-    public function attributes()
-    {
-        return [
-            '_id',
-            'client_id',
-            'client_secret',
-            'redirect_uri',
-            'grant_types',
-            'scope',
-            'user_id',
-
-            'cdt',
-            'udt',
-        ];
-    }
-
-    /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['client_id', 'client_secret', 'redirect_uri', 'grant_types', 'scope', 'user_id', 'cdt', 'udt'], 'safe'],
-            [['client_id'], 'required'],
-            ['client_id', 'unique',
-                'targetClass' => 'infinitydesign\idcoauth\models\OauthClients',
-                'message' => 'Repeated client_id'
-            ],
+            [['client_id', 'grant_types'], 'required'],
+            [['user_id', 'status'], 'integer'],
+            [['cdt', 'udt'], 'safe'],
+            [['client_id'], 'string', 'max' => 64],
+            [['client_secret', 'grant_types'], 'string', 'max' => 256],
+            [['redirect_uri', 'scope'], 'string', 'max' => 1024],
+            [['client_id'], 'unique'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            '_id' => Yii::t('app', 'ID'),
-            'client_id' => Yii::t('app', 'Client ID'),
-            'client_secret' => Yii::t('app', 'Client Secret'),
-            'redirect_uri' => Yii::t('app', 'Redirect Uri'),
-            'grant_types' => Yii::t('app', 'Grant Types'),
-            'scope' => Yii::t('app', 'Scope'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'cdt' => Yii::t('app', 'Created At'),
-            'udt' => Yii::t('app', 'Updated At')
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => MongoDateBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['cdt', 'udt'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['udt']
-                ]
-            ]
+            'id' => 'ID',
+            'client_id' => 'Client ID',
+            'client_secret' => 'Client Secret',
+            'redirect_uri' => 'Redirect Uri',
+            'grant_types' => 'Grant Types',
+            'scope' => 'Scope',
+            'user_id' => 'User ID',
+            'status' => 'Status',
+            'cdt' => 'Cdt',
+            'udt' => 'Udt',
         ];
     }
 
@@ -107,9 +72,6 @@ class OauthClients extends ActiveRecord implements ClientCredentialsInterface
     public function checkClientCredentials($client_id, $client_secret = null)
     {
         \Yii::warning("checkClientCredentials called");
-
-        // skip checking client credentials
-        // return true;
 
         if( !$model = self::findOne(['client_id' => $client_id]) ){
             return false;
@@ -140,9 +102,6 @@ class OauthClients extends ActiveRecord implements ClientCredentialsInterface
     public function getClientDetails($client_id)
     {
         \Yii::warning("getClientDetails called");
-
-
-//        return [];
 
         if( !$model = self::findOne(['client_id' => $client_id]) ){
             return false;
@@ -250,5 +209,4 @@ class OauthClients extends ActiveRecord implements ClientCredentialsInterface
         }
         return null;
     }
-
 }

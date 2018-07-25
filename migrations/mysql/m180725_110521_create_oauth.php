@@ -14,12 +14,12 @@ class m180725_110521_create_oauth extends Migration
     {
 
         $clientId = $this->string(64)->notNull();
-        $userId = $this->integer();
+        $userId = $this->integer()->unsigned();
         $deviceId = $this->string(32)->notNull();
         $authorizationCode = $this->string(128)->notNull();
         $expires = $this->integer()->notNull();
         $scope = $this->string(1024);
-        $redirectUri = $this->string(1024)->notNull();
+        $redirectUri = $this->string(1024);
         $dt = $this->timestamp()->null();
 //        $grantTypes = $this->string(256);
 
@@ -31,14 +31,14 @@ class m180725_110521_create_oauth extends Migration
 
         $this->createTable('oauth_clients', [
             'id' => $this->primaryKey(),
-            'client_id' => $clientId->unique(),
-            'client_secret' => $this->string(256)->notNull(),
+            'client_id' => (clone $clientId)->unique(),
+            'client_secret' => $this->string(256),
             'redirect_uri' => $redirectUri,
             'grant_types' => $this->string(256)->notNull(),
             'scope' => $scope,
             'user_id' => $userId,
 
-//            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'cdt' => $dt,
             'udt' => $dt,
         ], $tableOptions);
@@ -53,7 +53,7 @@ class m180725_110521_create_oauth extends Migration
             'user_id' => $userId,
             'device_id' => $deviceId,
 
-//            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'cdt' => $dt,
             'udt' => $dt,
         ], $tableOptions);
@@ -68,7 +68,7 @@ class m180725_110521_create_oauth extends Migration
             'user_id' => $userId,
             'device_id' => $deviceId,
 
-//            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'cdt' => $dt,
             'udt' => $dt,
         ], $tableOptions);
@@ -78,7 +78,7 @@ class m180725_110521_create_oauth extends Migration
             'id' => $this->primaryKey(),
             'authorization_code' => $this->string(64)->notNull()->unique(),
             'client_id' => $clientId,
-            'user_id' => $userId->notNull(),
+            'user_id' => (clone $userId)->notNull(),
             'redirect_uri' => $redirectUri,
             'expires' => $expires,
             'scope' => $scope,
@@ -86,7 +86,7 @@ class m180725_110521_create_oauth extends Migration
             'code' => $this->string(128),
             'device_id' => $deviceId->notNull(),
 
-//            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'cdt' => $dt,
             'udt' => $dt,
         ], $tableOptions);
@@ -97,7 +97,7 @@ class m180725_110521_create_oauth extends Migration
             'scope' => $scope,
             'is_default' => $this->smallInteger(),
 
-//            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'cdt' => $dt,
             'udt' => $dt,
         ], $tableOptions);
@@ -117,6 +117,28 @@ class m180725_110521_create_oauth extends Migration
             'cdt' => $dt,
             'udt' => $dt,
         ], $tableOptions);
+
+
+        $this->insert('oauth_clients', [
+            'client_id' => 'public-android',
+            'grant_types' => 'password refresh_token code authorization_code',
+            'cdt' => date("Y-m-d H:i:s"),
+            'udt' => date("Y-m-d H:i:s"),
+        ]);
+
+        $this->insert('oauth_clients', [
+            'client_id' => 'public-ios',
+            'grant_types' => 'password refresh_token code authorization_code',
+            'cdt' => date("Y-m-d H:i:s"),
+            'udt' => date("Y-m-d H:i:s"),
+        ]);
+
+        $this->insert('oauth_clients', [
+            'client_id' => 'public-web',
+            'grant_types' => 'password refresh_token code authorization_code',
+            'cdt' => date("Y-m-d H:i:s"),
+            'udt' => date("Y-m-d H:i:s"),
+        ]);
 
     }
 

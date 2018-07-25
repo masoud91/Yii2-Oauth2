@@ -1,58 +1,34 @@
 <?php
 
-namespace infinitydesign\idcoauth\models;
+namespace infinitydesign\idcoauth\mysql\models;
 
 use Yii;
-use yii\mongodb\ActiveRecord;
-use OAuth2\Storage\AuthorizationCodeInterface;
 
 /**
- * This is the model class for collection "oauth_authorization_codes".
+ * This is the model class for table "oauth_authorization_codes".
  *
- * @property \MongoDB\BSON\ObjectID|string $_id
+ * @property int $id
  * @property string $authorization_code
  * @property string $client_id
- * @property \MongoDB\BSON\ObjectID|string $user_id
+ * @property int $user_id
  * @property string $redirect_uri
- * @property integer $expires
+ * @property int $expires
  * @property string $scope
  * @property string $id_token
  * @property string $code
-
  * @property string $device_id
- * @property mixed $cdt
- * @property mixed $udt
+ * @property int $status
+ * @property string $cdt
+ * @property string $udt
  */
-class OauthAuthorizationCodes extends ActiveRecord implements AuthorizationCodeInterface
+class OauthAuthorizationCodes extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
-    public static function collectionName()
+    public static function tableName()
     {
         return 'oauth_authorization_codes';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributes()
-    {
-        return [
-            '_id',
-            'authorization_code',
-            'client_id',
-            'user_id',
-            'redirect_uri',
-            'expires',
-            'scope',
-            'id_token',
-            'code',
-
-            'device_id',
-            'cdt',
-            'udt',
-        ];
     }
 
     /**
@@ -61,16 +37,14 @@ class OauthAuthorizationCodes extends ActiveRecord implements AuthorizationCodeI
     public function rules()
     {
         return [
-            [[
-                'authorization_code',
-                'client_id',
-                'user_id',
-                'redirect_uri',
-                'expires',
-                'scope',
-                'id_token',
-                'code'
-            ], 'safe']
+            [['authorization_code', 'client_id', 'user_id', 'expires', 'device_id'], 'required'],
+            [['user_id', 'expires', 'status'], 'integer'],
+            [['cdt', 'udt'], 'safe'],
+            [['authorization_code', 'client_id'], 'string', 'max' => 64],
+            [['redirect_uri', 'scope'], 'string', 'max' => 1024],
+            [['id_token', 'code'], 'string', 'max' => 128],
+            [['device_id'], 'string', 'max' => 32],
+            [['authorization_code'], 'unique'],
         ];
     }
 
@@ -80,15 +54,19 @@ class OauthAuthorizationCodes extends ActiveRecord implements AuthorizationCodeI
     public function attributeLabels()
     {
         return [
-            '_id' => Yii::t('app', 'ID'),
-            'authorization_code' => Yii::t('app', 'Authorization Code'),
-            'client_id' => Yii::t('app', 'Client ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'redirect_uri' => Yii::t('app', 'Redirect Uri'),
-            'expires' => Yii::t('app', 'Expires'),
-            'scope' => Yii::t('app', 'Scope'),
-            'id_token' => Yii::t('app', 'Id Token'),
-            'code' => Yii::t('app', 'Code')
+            'id' => 'ID',
+            'authorization_code' => 'Authorization Code',
+            'client_id' => 'Client ID',
+            'user_id' => 'User ID',
+            'redirect_uri' => 'Redirect Uri',
+            'expires' => 'Expires',
+            'scope' => 'Scope',
+            'id_token' => 'Id Token',
+            'code' => 'Code',
+            'device_id' => 'Device ID',
+            'status' => 'Status',
+            'cdt' => 'Cdt',
+            'udt' => 'Udt',
         ];
     }
 
