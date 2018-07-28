@@ -4,6 +4,7 @@ namespace infinitydesign\idcoauth\models\mysql;
 
 use Yii;
 use yii\db\ActiveRecord;
+use OAuth2\Storage\ClientCredentialsInterface;
 
 /**
  * This is the model class for table "oauth_clients".
@@ -19,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property string $cdt
  * @property string $udt
  */
-class OauthClients extends ActiveRecord
+class OauthClients extends ActiveRecord implements ClientCredentialsInterface
 {
     /**
      * {@inheritdoc}

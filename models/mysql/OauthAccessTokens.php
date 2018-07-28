@@ -4,6 +4,7 @@ namespace infinitydesign\idcoauth\models\mysql;
 
 use Yii;
 use yii\db\ActiveRecord;
+use OAuth2\Storage\AccessTokenInterface;
 
 /**
  * This is the model class for table "oauth_access_tokens".
@@ -19,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property string $cdt
  * @property string $udt
  */
-class OauthAccessTokens extends ActiveRecord
+class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
 {
 
     const OS_ANDROID = 'Android';

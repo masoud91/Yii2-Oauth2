@@ -3,6 +3,7 @@
 namespace infinitydesign\idcoauth\models\mysql;
 
 use Yii;
+use OAuth2\Storage\AuthorizationCodeInterface;
 
 /**
  * This is the model class for table "oauth_authorization_codes".
@@ -21,7 +22,7 @@ use Yii;
  * @property string $cdt
  * @property string $udt
  */
-class OauthAuthorizationCodes extends \yii\db\ActiveRecord
+class OauthAuthorizationCodes extends \yii\db\ActiveRecord implements AuthorizationCodeInterface
 {
     /**
      * {@inheritdoc}

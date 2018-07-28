@@ -3,7 +3,8 @@
 namespace infinitydesign\idcoauth\models\mysql;
 
 use Yii;
-use \yii\db\ActiveRecord;
+use yii\db\ActiveRecord;
+use OAuth2\Storage\ScopeInterface;
 
 /**
  * This is the model class for table "oauth_scopes".
@@ -15,7 +16,7 @@ use \yii\db\ActiveRecord;
  * @property string $cdt
  * @property string $udt
  */
-class OauthScopes extends ActiveRecord
+class OauthScopes extends ActiveRecord implements ScopeInterface
 {
     /**
      * {@inheritdoc}

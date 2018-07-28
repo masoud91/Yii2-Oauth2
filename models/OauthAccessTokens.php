@@ -2,11 +2,13 @@
 
 namespace infinitydesign\idcoauth\models;
 
-use MongoDB\BSON\ObjectId;
 use yii;
+
 use common\idco\mongodb\ActiveRecord;
 use common\components\MongoDateBehavior;
+
 use OAuth2\Storage\AccessTokenInterface;
+use MongoDB\BSON\ObjectId;
 
 /**
  * This is the model class for collection "OauthClients".

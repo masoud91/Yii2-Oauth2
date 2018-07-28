@@ -3,6 +3,7 @@
 namespace infinitydesign\idcoauth\models\mysql;
 
 use Yii;
+use OAuth2\Storage\RefreshTokenInterface;
 
 /**
  * This is the model class for table "oauth_refresh_tokens".
@@ -18,7 +19,7 @@ use Yii;
  * @property string $cdt
  * @property string $udt
  */
-class OauthRefreshTokens extends \yii\db\ActiveRecord
+class OauthRefreshTokens extends \yii\db\ActiveRecord implements RefreshTokenInterface
 {
     /**
      * {@inheritdoc}
