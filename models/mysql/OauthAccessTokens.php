@@ -96,7 +96,7 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
             'client_id' => $client_id,
             'expires' => $expires,
             'user_id' => $user_id,
-            'scope' => $scope
+//            'scope' => $scope
         ];
 
         if( Yii::$app->request->post('uuid') ) {

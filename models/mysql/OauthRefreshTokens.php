@@ -107,7 +107,7 @@ class OauthRefreshTokens extends \yii\db\ActiveRecord implements RefreshTokenInt
             'client_id' => $client_id,
             'user_id' => $user_id,
             'expires' => $expires,
-            'scope' => $scope
+//            'scope' => $scope
         ];
 
         if( Yii::$app->request->post('uuid') ) {
