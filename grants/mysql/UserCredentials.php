@@ -1,6 +1,6 @@
 <?php
 
-namespace infinitydesign\idcoauth\grants;
+namespace infinitydesign\idcoauth\grants\mysql;
 
 use Yii;
 use infinitydesign\idcoauth\models\mysql\OauthDevice;
