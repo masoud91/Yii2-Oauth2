@@ -111,6 +111,7 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
             $token['device_id'] = $device->uuid;
         }
 
+        Yii::warning($token);
 //        Yii::warning(yii\helpers\Json::encode($token));
 
         // if it exists, update it.
@@ -121,7 +122,12 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
         $token['access_token'] = $access_token;
 
         $model = new self($token);
-        return $model->save();
+        if ( !$model->save() ){
+            Yii::error($model->errors);
+            return false;
+        }
+
+        return true;
     }
 
     /**
