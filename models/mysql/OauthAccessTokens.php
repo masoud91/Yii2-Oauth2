@@ -111,7 +111,7 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
             $token['device_id'] = $device->uuid;
         }
 
-        Yii::warning(yii\helpers\Json::encode($token));
+//        Yii::warning(yii\helpers\Json::encode($token));
 
         // if it exists, update it.
         if ($this->getAccessToken($access_token)) {
