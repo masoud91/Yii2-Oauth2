@@ -2,52 +2,30 @@
 
 namespace infinitydesign\idcoauth\models\mysql;
 
-use MongoDB\BSON\ObjectId;
 use Yii;
-use yii\mongodb\ActiveRecord;
-use OAuth2\Storage\RefreshTokenInterface;
-use common\components\MongoDateBehavior;
 
 /**
- * This is the model class for collection "oauth_refresh_tokens".
+ * This is the model class for table "oauth_refresh_tokens".
  *
- * @property \MongoDB\BSON\ObjectID|string $_id
- * @property mixed $refresh_token
- * @property mixed $client_id
- * @property mixed $user_id
- * @property mixed $expires
- * @property mixed $scope
+ * @property int $id
+ * @property string $refresh_token
+ * @property string $client_id
+ * @property int $expires
+ * @property string $scope
+ * @property int $user_id
  * @property string $device_id
- * @property integer $cdt
- * @property integer $udt
+ * @property int $status
+ * @property string $cdt
+ * @property string $udt
  */
-class OauthRefreshTokens extends ActiveRecord implements RefreshTokenInterface
+class OauthRefreshTokens extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
-    public static function collectionName()
+    public static function tableName()
     {
         return 'oauth_refresh_tokens';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributes()
-    {
-        return [
-            '_id',
-            'refresh_token',
-            'client_id',
-            'user_id',
-            'expires',
-            'scope',
-
-            'device_id',
-            'cdt',
-            'udt',
-        ];
     }
 
     /**
@@ -56,16 +34,13 @@ class OauthRefreshTokens extends ActiveRecord implements RefreshTokenInterface
     public function rules()
     {
         return [
-            [[
-                'refresh_token',
-                'client_id',
-                'user_id',
-                'expires',
-                'scope',
-                'device_id',
-                'cdt',
-                'udt'
-            ], 'safe']
+            [['refresh_token', 'client_id', 'expires', 'device_id'], 'required'],
+            [['expires', 'user_id', 'status'], 'integer'],
+            [['cdt', 'udt'], 'safe'],
+            [['refresh_token', 'client_id'], 'string', 'max' => 64],
+            [['scope'], 'string', 'max' => 1024],
+            [['device_id'], 'string', 'max' => 32],
+            [['refresh_token'], 'unique'],
         ];
     }
 
@@ -75,31 +50,16 @@ class OauthRefreshTokens extends ActiveRecord implements RefreshTokenInterface
     public function attributeLabels()
     {
         return [
-            '_id' => Yii::t('app', 'ID'),
-            'refresh_token' => Yii::t('app', 'Refresh Token'),
-            'client_id' => Yii::t('app', 'Client ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'expires' => Yii::t('app', 'Expires'),
-            'scope' => Yii::t('app', 'Scope'),
-            'device_id' => Yii::t('app', 'Device ID'),
-            'cdt' => Yii::t('app', 'Created At'),
-            'udt' => Yii::t('app', 'Updated At')
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => MongoDateBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['cdt', 'udt'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['udt']
-                ]
-            ]
+            'id' => 'ID',
+            'refresh_token' => 'Refresh Token',
+            'client_id' => 'Client ID',
+            'expires' => 'Expires',
+            'scope' => 'Scope',
+            'user_id' => 'User ID',
+            'device_id' => 'Device ID',
+            'status' => 'Status',
+            'cdt' => 'Cdt',
+            'udt' => 'Udt',
         ];
     }
 
@@ -144,7 +104,7 @@ class OauthRefreshTokens extends ActiveRecord implements RefreshTokenInterface
         $token = [
             'refresh_token' => $refresh_token,
             'client_id' => $client_id,
-            'user_id' => new ObjectId($user_id),
+            'user_id' => $user_id,
             'expires' => $expires,
             'scope' => $scope
         ];
