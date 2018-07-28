@@ -1,6 +1,6 @@
 <?php
 
-namespace infinitydesign\idcoauth\models;
+namespace infinitydesign\idcoauth\models\mysql;
 
 use MongoDB\BSON\ObjectId;
 use Yii;

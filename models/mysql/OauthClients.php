@@ -1,6 +1,6 @@
 <?php
 
-namespace infinitydesign\idcoauth\mysql\models;
+namespace infinitydesign\idcoauth\models\mysql;
 
 use Yii;
 use yii\db\ActiveRecord;
