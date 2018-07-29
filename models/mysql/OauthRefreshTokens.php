@@ -78,6 +78,7 @@ class OauthRefreshTokens extends \yii\db\ActiveRecord implements RefreshTokenInt
         }
 
         if( !$user = User::findOne($token->user_id) ) {
+            Yii::error("could not find user with ID $token->user_id");
             return null;
         }
 
@@ -141,7 +142,7 @@ class OauthRefreshTokens extends \yii\db\ActiveRecord implements RefreshTokenInt
     {
         \Yii::warning("unsetRefreshToken called");
 
-        return ( self::deleteAll(['access_token' => $refreshToken]) > 0 );
+        return ( self::deleteAll(['refresh_token' => $refreshToken]) > 0 );
     }
 
     /**
