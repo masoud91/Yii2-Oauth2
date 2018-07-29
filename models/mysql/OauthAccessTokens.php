@@ -151,7 +151,7 @@ class OauthAccessTokens extends ActiveRecord implements AccessTokenInterface
             return false;
         }
 
-        Yii::error(yii\helpers\Json::encode($accessTokenModel));
+        Yii::error($accessTokenModel);
         return $accessTokenModel->user_id;
     }
 
