@@ -2,6 +2,7 @@
 
 namespace infinitydesign\idcoauth\models\mysql;
 
+use common\models\User;
 use Yii;
 use OAuth2\Storage\RefreshTokenInterface;
 
@@ -76,6 +77,10 @@ class OauthRefreshTokens extends \yii\db\ActiveRecord implements RefreshTokenInt
             return null;
         }
 
+        if( !$user = User::findOne($token->user_id) ) {
+            return null;
+        }
+
         if( $uuid = Yii::$app->request->post('uuid') ) {
 
             Yii::warning("getRefreshToken request contains UUID");
@@ -85,9 +90,11 @@ class OauthRefreshTokens extends \yii\db\ActiveRecord implements RefreshTokenInt
                 return null;
             }
 
+            Yii::$app->user->identity = $user;
             return $token;
         }
 
+        Yii::$app->user->identity = $user;
         return $token;
     }
 
