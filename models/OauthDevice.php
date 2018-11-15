@@ -5,7 +5,9 @@ namespace infinitydesign\idcoauth\models;
 use MongoDB\BSON\ObjectId;
 use yii;
 use yii\mongodb\ActiveRecord;
-use common\components\MongoDateBehavior;
+use infinitydesign\idcoauth\components\MongoDateBehavior;
+use infinitydesign\idcoauth\models\OauthAccessTokens;
+use infinitydesign\idcoauth\models\OauthRefreshTokens;
 
 /**
  * This is the model class for collection "OauthClients".
@@ -137,6 +139,9 @@ class OauthDevice extends ActiveRecord
             Yii::error("could not find device with UUID: $uuid");
             $device = new self();
             $device->uuid = $uuid;
+        } else {
+            OauthAccessTokens::deleteAll(['device_id' => $uuid]);
+            OauthRefreshTokens::deleteAll(['device_id' => $uuid]);
         }
 
         $device->pid = $request->post('pid');

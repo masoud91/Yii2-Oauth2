@@ -3,7 +3,7 @@
 namespace infinitydesign\idcoauth\grants;
 
 use Yii;
-use common\models\oauth\OauthDevice;
+use infinitydesign\idcoauth\models\OauthDevice;
 use OAuth2\Storage\AuthorizationCodeInterface;
 use OAuth2\ResponseType\AccessTokenInterface;
 use OAuth2\GrantType\GrantTypeInterface;

@@ -5,7 +5,7 @@ namespace infinitydesign\idcoauth\models\mongodb;
 use MongoDB\BSON\ObjectId;
 use yii;
 use common\idco\mongodb\ActiveRecord;
-use common\components\MongoDateBehavior;
+use infinitydesign\idcoauth\components\MongoDateBehavior;
 use OAuth2\Storage\AccessTokenInterface;
 
 /**

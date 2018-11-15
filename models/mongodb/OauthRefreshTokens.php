@@ -6,7 +6,7 @@ use MongoDB\BSON\ObjectId;
 use Yii;
 use yii\mongodb\ActiveRecord;
 use OAuth2\Storage\RefreshTokenInterface;
-use common\components\MongoDateBehavior;
+use infinitydesign\idcoauth\components\MongoDateBehavior;
 
 /**
  * This is the model class for collection "oauth_refresh_tokens".

@@ -4,7 +4,7 @@ namespace infinitydesign\idcoauth\models\mongodb;
 
 use yii;
 use yii\mongodb\ActiveRecord;
-use common\components\MongoDateBehavior;
+use infinitydesign\idcoauth\components\MongoDateBehavior;
 use OAuth2\Storage\ClientCredentialsInterface;
 
 /**
