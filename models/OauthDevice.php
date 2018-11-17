@@ -141,7 +141,7 @@ class OauthDevice extends ActiveRecord
             $device->uuid = $uuid;
         } else {
             OauthAccessTokens::deleteAll(['device_id' => $uuid]);
-            OauthRefreshTokens::deleteAll(['device_id' => $uuid]);
+//            OauthRefreshTokens::deleteAll(['device_id' => $uuid]);
         }
 
         $device->pid = $request->post('pid');
