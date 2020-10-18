@@ -1,6 +1,6 @@
-Yii2 idco ouath2
+Yii2 ouath2
 ================
-idco ouath2 extension for Yii2
+ouath2 extension for Yii2
 
 Requirements
 ------------
